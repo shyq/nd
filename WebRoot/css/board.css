@@ -1,8 +1,7 @@
 /*
  * Base structure
  */
-
-/* Move down content because we have a fixed navbar that is 50px tall */
+	/* Move down content because we have a fixed navbar that is 50px tall */
 body {
 	padding-top: 50px;
 }
@@ -17,9 +16,7 @@ body {
 
 /*
  * Sidebar
- */
-
-/* Hide for mobile, show later */
+ */ /* Hide for mobile, show later */
 .sidebar {
 	display: none;
 }
@@ -111,8 +108,8 @@ body {
 }
 
 .list-docs li {
-	padding-top: 5px;
-	padding-bottom: 3px;
+	padding-top: 15px;
+	padding-bottom: 13px;
 	font-variant: inherit;
 }
 
@@ -156,4 +153,197 @@ input[type=checkbox].css-checkbox:checked+label.css-label {
 
 .css-label {
 	background-image: url(../img/elegant.png);
+}
+
+/**
+以下部分为文件显示列表css
+***/
+.btn-upload {
+	float: left;
+	margin-left: 0px;
+	display: block;
+	height: 33px;
+	width: 79px;
+	background: url('../img/iconupdate.png') no-repeat;
+	color: #ffffff !important;
+}
+
+.btn-upload em {
+	height: 33px;
+	width: 79px;
+	line-height: 33px;
+	margin-left: 35px;
+	font-style: normal;
+}
+
+.btn-upload:hover {
+	color: #1474B0;
+	background: url('../img/iconupdatehover.png') no-repeat;
+}
+
+.btn-create {
+	float: left;
+	height: 33px;
+	background: url('../img/createfile.png') no-repeat;
+	display: block;
+	width: 115px;
+	line-height: 30px;
+	line-height: 30px\9;
+	color: #666 !important;
+	margin-left: 10px;
+	
+}
+
+.btn-create em {
+	height: 33px;
+	line-height: 33px;
+	margin-left: 35px;
+	font-style: normal;
+	color: #333;
+}
+
+.btn-create:hover {
+	background: url('../img/createfilehover.png') no-repeat;
+}
+
+.btn-download {
+	float: left;
+	margin-left: 0px;
+	position: absolute;
+	display: block;
+	height: 33px;
+	width: 79px;
+	background: url('../img/docDownload.png') no-repeat;
+	color: #ffffff;
+	margin-left: 215px;
+}
+
+.btn-download em {
+	height: 33px;
+	line-height: 33px;
+	margin-left: 30px;
+	font-style: normal;
+	color:#333; 
+}
+
+.btn-download:hover {
+	color: #1474B0;
+	background: url('../img/docDownloadhover.png') no-repeat;
+}
+
+.btn-delete {
+	float: left;
+	margin-left: 80px;
+	position: absolute;
+	display: block;
+	height: 33px;
+	width: 79px;
+	background: url('../img/docDelete.png') no-repeat;
+	color: #ffffff;
+	margin-left: 305px;
+}
+
+.btn-delete em {
+	height: 33px;
+	line-height: 33px;
+	margin-left: 30px;
+	font-style: normal;
+	color: #333;
+}
+
+.btn-delete:hover {
+	color: #1474B0;
+	background: url('../img/docDeletehover.png') no-repeat;
+}
+
+
+
+
+
+
+.iconbtncreateshare {
+	height: 33px;
+	background: url('../img/createshare.png') no-repeat;
+	display: block;
+	width: 115px;
+	line-height: 30px;
+	line-height: 30px\9;
+	margin-left: 0px;
+	color: #666 !important
+}
+
+.iconbtncreateshare em {
+	height: 33px;
+	line-height: 33px;
+	margin-left: 45px;
+}
+
+.iconbtncreateshare:hover {
+	background: url('../img/createsharehover.png') no-repeat;
+}
+
+.iconbtnclearfile {
+	height: 33px;
+	background: url('../img/createclearfile.png') no-repeat;
+	display: block;
+	width: 115px;
+	line-height: 30px;
+	line-height: 30px\9;
+	margin-left: 160px;
+	color: #666 !important
+}
+
+.iconbtnclearfile em {
+	height: 33px;
+	line-height: 33px;
+	margin-left: 45px;
+}
+
+.iconbtnclearfile:hover {
+	background: url('../img/createclearfilehover.png') no-repeat;
+}
+
+.bbtnDocShenpi {
+	float: left;
+	margin-left: 0px;
+	position: absolute;
+	display: block;
+	height: 33px;
+	width: 79px;
+	background: url('../img/docShenpi.png') no-repeat;
+	color: #ffffff;
+}
+
+.bbtnDocShenpi em {
+	height: 33px;
+	line-height: 33px;
+	margin-left: 30px;
+}
+
+.bbtnDocShenpi:hover {
+	color: #1474B0;
+	background: url('../img/docShenpihover.png') no-repeat;
+}
+
+
+.shared {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 40px;
+	height: 13px;
+	line-height: 10;
+	overflow: hidden;
+	background-image: url(../img/doc/ico_shared_type.png);
+	background-repeat: no-repeat;
+	background-position: 0 -14px;
+	_background-image: url(../img/doc/ico_shared_type.gif);
+}
+
+.file-type .shared {
+	bottom: -3px;
+	left: -2px;
+	width: 28px;
+	height: 9px;
+	background-position: 0 0;
 }

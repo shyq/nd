@@ -26,6 +26,7 @@ public class HibernateTest extends TestCase {
 			d.setOwn(user);
 			d.setPath("/");
 			d.setDir("/" + user.getId() + "/");
+			d.setParent(null);
 			s.save(d);
 		}
 		s.getTransaction().commit();

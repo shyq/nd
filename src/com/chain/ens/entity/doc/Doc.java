@@ -6,6 +6,7 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 import com.chain.base.orm.entity.BaseEntity;
 import com.chain.ens.entity.base.User;
@@ -23,6 +24,10 @@ public class Doc extends BaseEntity{
 	private User own;
 	private Integer docType = DocType.folder.getValue();
 	private Integer deleteState = DeleteState.undeleted.getValue();
+	private Doc parent;
+	private Long parentId;
+	private String parentName;
+	
 	
 	@Column(name="NAME")
 	public String getName() {
@@ -68,4 +73,35 @@ public class Doc extends BaseEntity{
 	public void setDeleteState(Integer deleteState) {
 		this.deleteState = deleteState;
 	}
+	
+	@ManyToOne(cascade=CascadeType.ALL)
+	@JoinColumn(name="PARENT_ID")
+	public Doc getParent() {
+		return parent;
+	}
+	public void setParent(Doc parent) {
+		this.parent = parent;
+	}
+	
+	@Transient
+	public Long getParentId() {
+		if(parent != null)
+			parentId = parent.getId();
+		return parentId;
+	}
+	public void setParentId(Long parentId) {
+		this.parentId = parentId;
+	}
+	
+	@Transient
+	public String getParentName() {
+		if(parent != null)
+			parentName = parent.getName();
+		return parentName;
+	}
+	public void setParentName(String parentName) {
+		this.parentName = parentName;
+	}
+	
+	
 }

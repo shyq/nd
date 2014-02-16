@@ -29,12 +29,23 @@ public class DocAction extends StrutsAction<Doc> {
 		return null;
 	}
 	
-	
+	/**
+	 * 在执行getDocs()前进行二次绑定，否则model为空 
+	 */
+	public void prepareGetAllDocs(){
+		model = new Doc();
+	}
 	/**
 	 * 查询所有文件
 	 */
 	public void getAllDocs(){
-		Page<Doc> docs = docManager.queryDocs(model,getQueryPage());
+		Page<Doc> docs = null;
+		try {
+			docs = docManager.getAllDocs(model,getQueryPage());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		Struts2Utils.renderJson(docs);
 	}
 	

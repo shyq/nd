@@ -27,49 +27,34 @@
        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
          <h5 class="page-header">全部文件</h5>
          <div class="row">
-         	<a class="btn btn-primary btn-lg" role="button"  id="cmdNewFolder">新建文件夹</a>
-         	<a class="btn btn-primary btn-lg" role="button">Learn more</a>
-         	<a class="btn btn-primary btn-lg" role="button">Learn more</a>
+         	<a id="barCmdUpload" href="javascript:;" class="btn-upload" >
+		 		<em>上&nbsp;传</em>
+		 	</a>
+		 	<a title="新建文件夹" id="barCmdNewFolder" href="javascript:;" hidefocus="true" 
+		 		class="btn-create" >
+		 		<em>新建文件夹</em>
+		 	</a>
+		 	
+	 		<a title="下载文件" id="barCmdDownload" class="btn-download" href="javascript:;" hidefocus="true">
+		 		<em>下&nbsp;载</em>
+		 	</a>
+		 	<a title="删除文件" id="barCmdDelete" class="btn-delete" href="javascript:;" hidefocus="true">
+		 		<em>删&nbsp;除</em>
+		 	</a>
          </div>
-         <h6 class="sub-header" id="cmd-header"></h6>
+         <p class="sub-header" ></p>
          <div class="bs-docs-grid">
 	         <div class="row show-grid-board" >
-				  <div class="col-xs-12 col-md-6">
+				  <div class="col-xs-12 col-md-7" style="height: 42px;">
 				  	<input id="check_all" class="css-checkbox" type="checkbox" />
 					<label for="check_all" class="css-label"> </label>
 					<label> 文件名  </label>
 				  </div>	
 				  <div class="col-md-2"><span >大小</span></div>
-				  <div class="col-md-2">上传日期</div>
-				  <div class="col-md-2">操作</div>
+				  <div class="col-md-3">上传日期</div>
 			</div>
 			<div>
 				<ul class="list-docs ksknns" id="data_list_inner">
-					<li class="row li-header" >
-						<div class="col-xs-12 col-md-7">
-					  		<input type="checkbox"  id="demo_box_2" class="css-checkbox"/>
-					  		<label for="demo_box_2" name="demo_lbl_1" class="css-label"></label>
-					  		<label name="demo_lbl_1" >asdasds</label>
-					  	</div>
-					    <div class="col-md-2"><span>4551KB</span></div>
-					    <div class="col-md-3"><span>2014-05-02</span></div>
-					</li>
-					<li class="row li-header" >
-						<div class="col-xs-12 col-md-7">
-					  		<input type="checkbox" class="css-checkbox"/>
-					  		<span>新建文件夹</span>
-					  	</div>
-					    <div class="col-md-2">4551KB</div>
-					    <div class="col-md-3">2014-05-02</div>
-					</li>
-					<li class="row li-header" >
-						<div class="col-xs-12 col-md-7">
-					  		<input type="checkbox" class="css-checkbox"/>
-					  		<span>新建文件夹</span>
-					  	</div>
-					    <div class="col-md-2">4551KB</div>
-					    <div class="col-md-3">2014-05-02</div>
-					</li>
 				</ul>
 			</div>
 			<!-- 分页 -->

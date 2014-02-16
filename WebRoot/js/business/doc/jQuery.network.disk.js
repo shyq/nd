@@ -26,7 +26,7 @@
 //			$("#check_all").attr("checked", false);
 //		}
 		// 当前点击的节点的数据不能清除
-		$("#data_list_inner").empty();
+		//$("#data_list_inner").empty();
 		
 		var _query_url = opts.queryUrl;
 		if(opts.searchForm != null){
@@ -53,9 +53,34 @@
 					$("#barCmdDestory").addClass("disabled");
 					return;
 				}
+				var data_list = "";				
 				// 遍历信息
 				$.each(data.result,function(i, obj) {
-					
+					if (obj.docType == 0) {//文件
+						data_list =  data_list 
+							+ "<li class='row li-header'>"
+							+ "<div class='col-xs-12 col-md-7'>"
+							+ "<input type='checkbox'  id='dox_ck_" + obj.id + "' class='css-checkbox'/>"
+							+ "<label for='dox_ck_" + obj.id + "' name='name_" + obj.id + "' class='css-label'> </label>"
+							+ "<a>" + obj.name + "</a>"
+							+ "</div>"
+							+ "<div class='col-md-2'><span>4551KB</span></div>"
+							+ "<div class='col-md-3'><span>2014-05-02</span></div>"
+							+"</li>"
+					}else{//1 文件夹
+						data_list =  data_list 
+							+ "<li class='row li-header'>"
+							+ "<div class='col-xs-12 col-md-7'>"
+							+ "<input type='checkbox'  id='dox_ck_" + obj.id + "' class='css-checkbox'/>"
+							+ "<label for='dox_ck_" + obj.id + "' name='name_" + obj.id + "' class='css-label'>"
+							+ "<div style='margin-top: -8px;'><img  src='"+ctx+"/img/folder-32.png'/></div>"
+							+ "</label>"
+							+ "<a>" + obj.name + "</a>"
+							+ "</div>"
+							+ "<div class='col-md-2'><span>4551KB</span></div>"
+							+ "<div class='col-md-3'><span>2014-05-02</span></div>"
+							+"</li>"
+					}
 					$("#data_list_inner").html(data_list);
 				});
 			}
@@ -108,7 +133,7 @@
 		searchForm:null,//文档搜索条件form
 		page : 1, // 当前页数
 		rows : 10, // 每页显示多少条
-		orderby : 'type', // 排序字段
+		orderby : 'docType', // 排序字段
 		order : "asc"// 排序方式
 	};
 	// 闭包结束

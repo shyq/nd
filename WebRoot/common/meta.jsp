@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="${ctx}/css/docs.css">
 
 <!-- Latest compiled and minified JavaScript -->
-<script src="${ctx}/plugin/jquery/jquery.11.min.js"></script>
+<script src="${ctx}/plugin/jquery/jquery.min.1.7.js"></script>
 <script src="${ctx}/plugin/bootstrap/js/bootstrap.min.js"></script>
 <script src="${ctx}/plugin/pagin/jquery.pagination.js"></script>
 
