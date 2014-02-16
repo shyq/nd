@@ -8,15 +8,14 @@
     <meta name="author" content="">
      <%@ include file="/common/taglibs.jsp"%>
      <%@ include file="/common/meta.jsp"%>
-    <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
 
     <title>Chain 网盘</title>
     <link href="${ctx}/css/board.css" rel="stylesheet">
-    <script src="${ctx}/js/business/doc/jQuery.bank.js"></script>
     <script type="text/javascript">
     $(function(){
 		$.fn.nd({
-			pageTag:"all"
+			pageTag:"all",
+			queryUrl:"${ctx}/doc/doc!getAllDocs.action"
 		});
 	})
     
@@ -35,15 +34,17 @@
          <h6 class="sub-header" id="cmd-header"></h6>
          <div class="bs-docs-grid">
 	         <div class="row show-grid-board" >
-				  <div class="col-xs-12 col-md-7">
-				  	<input id="demo_box_1" class="css-checkbox" type="checkbox" />
-					<label for="demo_box_1" name="demo_lbl_1" class="css-label">Option #1</label>
+				  <div class="col-xs-12 col-md-6">
+				  	<input id="check_all" class="css-checkbox" type="checkbox" />
+					<label for="check_all" class="css-label"> </label>
+					<label> 文件名  </label>
 				  </div>	
 				  <div class="col-md-2"><span >大小</span></div>
-				  <div class="col-md-3">上传日期</div>
+				  <div class="col-md-2">上传日期</div>
+				  <div class="col-md-2">操作</div>
 			</div>
 			<div>
-				<ul class="list-docs ksknns">
+				<ul class="list-docs ksknns" id="data_list_inner">
 					<li class="row li-header" >
 						<div class="col-xs-12 col-md-7">
 					  		<input type="checkbox"  id="demo_box_2" class="css-checkbox"/>
@@ -71,6 +72,8 @@
 					</li>
 				</ul>
 			</div>
+			<!-- 分页 -->
+        	<div id="pagination" ></div>
 		</div>
        <%@ include file="bottom.jsp" %>
        <!-- Modal -->

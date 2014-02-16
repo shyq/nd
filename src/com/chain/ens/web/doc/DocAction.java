@@ -3,6 +3,7 @@ package com.chain.ens.web.doc;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.chain.base.model.Result;
+import com.chain.base.orm.Page;
 import com.chain.base.orm.hibernate.EntityManager;
 import com.chain.base.web.struts2.StrutsAction;
 import com.chain.base.web.struts2.utils.Struts2Utils;
@@ -26,6 +27,15 @@ public class DocAction extends StrutsAction<Doc> {
 	public String list(){
 		Struts2Utils.renderText(docManager.getAll());
 		return null;
+	}
+	
+	
+	/**
+	 * 查询所有文件
+	 */
+	public void getAllDocs(){
+		Page<Doc> docs = docManager.queryDocs(model,getQueryPage());
+		Struts2Utils.renderJson(docs);
 	}
 	
 	

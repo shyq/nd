@@ -8,10 +8,15 @@
 	
 <!-- Optional theme -->
 <link rel="stylesheet" href="${ctx}/plugin/bootstrap/css/bootstrap-theme.css">
+<link rel="stylesheet" href="${ctx}/plugin/pagin/pagination.css">
 <link rel="stylesheet" href="${ctx}/css/docs.css">
 
 <!-- Latest compiled and minified JavaScript -->
 <script src="${ctx}/plugin/jquery/jquery.11.min.js"></script>
 <script src="${ctx}/plugin/bootstrap/js/bootstrap.min.js"></script>
-<script src="${ctx}/js/custom-form-elements.js"></script>
+<script src="${ctx}/plugin/pagin/jquery.pagination.js"></script>
+
+
+
+<script src="${ctx}/js/business/doc/jQuery.network.disk.js"></script>
 
