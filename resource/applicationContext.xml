@@ -33,7 +33,6 @@
         <property name="url" value="${jdbc.url}" />
         <property name="username" value="${jdbc.username}" />
         <property name="password" value="${jdbc.password}" />
-
         <property name="initialSize" value="5" />
         <property name="maxActive" value="50" />
         <property name="maxIdle" value="200" />
@@ -69,6 +68,7 @@
                 <prop key="net.sf.ehcache.configurationResourceName">${net.sf.ehcache.configurationResourceName}</prop>
 
                 <prop key="hibernate.jdbc.batch_size">0</prop>
+                <prop key="javax.persistence.validation.mode">none</prop> 
             </props>
         </property>
         <property name="packagesToScan">
