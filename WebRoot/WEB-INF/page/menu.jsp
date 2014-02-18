@@ -39,5 +39,11 @@
             <li><a href="">收藏的文件</a></li>
             <li><a href="">回收站</a></li>
           </ul>
+          
+           <ul class="nav nav-sidebar">
+            <li><a href="${ctx}/base/user.action">用户管理</a></li>
+            <li><a href="">角色管理</a></li>
+            <li><a href="">资源管理</a></li>
+          </ul>
         </div>
         

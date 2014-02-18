@@ -9,6 +9,7 @@ import com.chain.base.web.struts2.StrutsAction;
 import com.chain.base.web.struts2.utils.Struts2Utils;
 import com.chain.ens.entity.base.User;
 import com.chain.ens.entity.doc.Doc;
+import com.chain.ens.entity.doc.state.DocType;
 import com.chain.ens.service.base.UserManager;
 import com.chain.ens.service.doc.DocManager;
 
@@ -51,15 +52,23 @@ public class DocAction extends StrutsAction<Doc> {
 	
 	
 	public String save(){
-		String name = Struts2Utils.getParameter("name");
+		Result result =  null;
 		User u = userManager.getById(1L);
-		model.setOwn(u);
-		model.setName(name);
+		if(model.getParentId()!=null && !model.getParentId().equals(-1L)){
+			Doc parent = docManager.getById(model.getParentId());
+			model.setParent(parent);
+			model.setOwn(parent.getOwn());
+			model.setDir(parent.getDir() + "/" + parent.getName() + "#" + parent.getId());
+		}else{
+			model.setParent(null);
+			model.setOwn(u);
+			model.setDir("/" + u.getId() );
+		}
+		model.setDocType(DocType.folder.getValue());
+//		model.setCreateTime(new Date());
 		docManager.save(model);
-//		Result result = null;
-//		 result = new Result(Result.WARN, "名称为[" + model.getName()
-//                 + "]已存在,请修正!", "name");
-		Struts2Utils.renderText(Result.successResult());
+		result = new Result(Result.SUCCESS, "添加成功", "{name:'"+model.getName()+"',id:'"+model.getId()+"'}");
+		Struts2Utils.renderText(result);
 		return null;
 	}
 

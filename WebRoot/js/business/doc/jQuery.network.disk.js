@@ -9,24 +9,241 @@
 	var current_node=null;//当前节点
 	var dataMap = null;//保存数据的map
 	var current_path = null;// 地址导航;
-	
+	var parent_id=-1;
 	// 插件的定义
 	$.fn.nd = function(options) {
 		opts = $.extend( {}, $.fn.nd.defaults, options);
-//		initBtnListener();
+		initBtnListener();
 //		opts.treeUrl && opts.treeUrl!="" && initFolderTree();
 		queryFile(null);
 	};
 	
 	/**
+	 * 事件初始化
+	 */
+	function initBtnListener(){
+		$("#barCmdNewFolder").live("click", function() {
+			newFolder();
+		});
+		
+		$("#barCmdUpload").live('click', function() {
+			uploadFile(getCurrentNodeId());
+		});
+		
+		$("#barCmdCancelShare").live("click",function(){
+			batchCancelShare();
+		});
+		$("#barCmdDownload").live("click",function(){
+			batchDownload();
+		});
+		$("#barCmdAudit").live("click",function(){
+			batchAudit();
+		});
+		
+		$("#barCmdDelete").live('click', function() {
+			batchDelete();
+		});
+		
+		$("#barCmdRecoverer").live('click',function(){
+			batchRecover();
+		});
+		
+		$("#search_btn").live('click', function() {
+			search();
+		});
+
+		$("#barCmdDestory").live('click', function() {
+			destory();
+		});
+		
+		$("#barCmdEmpty").live('click', function() {
+			empty();
+		});
+		
+		$('#cmdSaveDoc').live('click',function(){
+			saveDoc();
+		});
+		
+		
+		
+		var timer = null;
+		
+		///:~ 鼠标单击文档事件
+		// 选中文档行
+		$("#data_list_inner li").live("click", function() {
+			// 取消上次延时未执行的方法
+			setCheckOrCancel(timer,$(this),false);
+		});
+		
+		///:~ 鼠标双击文档行事件
+		$("#data_list_inner li").live("dblclick", function() {
+			// 取消上次延时未执行的方法
+				clearTimeout(timer);
+				var id = $(this).attr("id").split("_")[1];
+				if ($(this).attr("file_type") == 'folder') {
+					parent_id = id;
+					folderDbClick();
+				} else {
+					view(id);
+				}
+		});
+		
+		///:~ 初始化导航点击事件
+		opts.navigation && setPathListener();
+		
+		///:~ 初始化全选按钮事件
+		$("#check_all") && setCheckAllListener();
+		
+		
+		///:~ 复选框改变选中事件
+		$("#data_list_inner li :checkbox").live("click", function(event) {
+			if (this.checked) {
+				$(this).parent().addClass("focus");
+			} else {
+				$("#check_all").attr("checked", false);
+				$(this).parent().removeClass("focus");
+			}
+			showOrHiddenButton();
+			event.stopPropagation();
+		});
+		
+		///:~ 阻止事件冒泡
+		$("#data_list_inner li :checkbox").live("dblclick", function(event) {
+			event.stopPropagation();
+		});
+		
+		$("#data_list li a").live('click',function() {
+			if($(this).attr("class") == undefined)
+				return;
+			if($(this).parent().parent() == undefined)
+				return;
+			var id = $(this).parent().parent().attr("id");
+			var key = $(this).attr("class").split("-")[1];
+			id.split("_")[0] == "folder"
+					&& 　folder_right_menu_enter.contains(key)
+					&&　selectNodeAndOnClick(id.split("_")[1]);
+				
+			exeFunction(key, id.split("_")[1], 3,false,false);
+		});
+	}
+	
+	function setCheckOrCancel(timer,obj,isRight){
+		if(obj==undefined || obj== null)return;
+		clearTimeout(timer);
+			// 执行延时
+		timer = setTimeout(function() {
+			// 取消所有选中行S
+			$("#data_list_inner li :checkbox:checked").each(function() {
+				$li = $(this).parent();
+				if ($li.attr("id") != obj.attr("id")) {
+					$li.find(":checkbox").attr("checked",false);
+					$("#check_all").attr("checked", false);
+					$li.removeClass("focus");
+				}
+			});
+			// 更改选中状态
+			if(isRight){
+				obj.find(":checkbox").attr("checked", true);
+				obj.addClass("focus");
+			}else{
+				if (obj.find(":checkbox:checked").length > 0) {
+					obj.find(":checkbox").attr("checked", false);
+					$("#check_all").attr("checked", false);
+					obj.removeClass("focus");
+				} else {
+					obj.find(":checkbox").attr("checked", true);
+					obj.addClass("focus");
+				}
+			}
+			
+			showOrHiddenButton();
+		}, 300);
+	}
+	
+	/**
+	 * 文件夹双击事件
+	 * @return
+	 */
+	function folderDbClick(){
+		opts.page = 1; //重置第一页
+		$("#check_all").attr("checked", false);// 重置全选按钮
+		if (opts.navigation) {//如果有路径(文档管理有路径,高级查询没有路径)
+			//设置路径
+		}
+		queryFile();
+	}
+	
+	
+	/*
+	 * 设置全选按钮事件
+	 */
+	function setCheckAllListener(){
+		$("#check_all").click(function() {
+			$("#data_list_inner li :checkbox").attr("checked",this.checked);
+			if (this.checked) {
+				$("#data_list_inner li").addClass("focus");
+			} else {
+				$("#data_list_inner li").removeClass("focus");
+			}
+			showOrHiddenButton();
+		});
+	}
+	
+	/**
+	 * 显示或者隐藏操作按钮
+	 */
+	function showOrHiddenButton(){
+		var fileSelect = $("#data_list_inner li[file_type!='folder'] :checkbox:checked").length;
+		var folderSelect = $("#data_list_inner li[file_type='folder'] :checkbox:checked").length;
+		if(fileSelect > 0){
+			$("#barCmdDownload").removeClass("disabled");
+		}else{
+			$("#barCmdDownload").addClass("disabled");
+		}
+		
+		if(fileSelect > 0 || folderSelect > 0){
+			$("#barCmdDelete").removeClass("disabled");
+			$("#barCmdRecoverer").removeClass("disabled");
+			$("#barCmdDestory").removeClass("disabled");
+		}else{
+			$("#barCmdDelete").addClass("disabled");
+			$("#barCmdRecoverer").addClass("disabled");
+			$("#barCmdDestory").addClass("disabled");
+		}
+	}
+	
+	/*
+	 * 设置路径监听事件
+	 */
+	function setPathListener(){
+		$("#path a").live("click", function() {
+			var id = $(this).attr("code");
+			if (id == -1) {// 根目录
+				folder_tree.cancelSelectedNode(current_node);
+				current_node = null;
+				current_path = "";
+				var pathHtml = " <a href='javascript:void(0);' code='-1' title='"
+							    + opts.title + "'>" + opts.title
+							    + "</a><i>»</i>"	;
+				$(".path-contents").html(pathHtml);
+				opts.page = 1;
+//				hidenButton(not_select_hiden_btn);
+				queryFile(current_node);
+			} else {
+				current_node != null && current_node.id != id && selectNodeAndOnClick(id);
+			}
+		});
+	}
+	
+	/**
 	 * 初始化分页 并 显示文档/文档类型信息
 	 */
-	function queryFile(parent) {
+	function queryFile() {
 //		if (exists("check_all")) {
 //			$("#check_all").attr("checked", false);
 //		}
 		// 当前点击的节点的数据不能清除
-		//$("#data_list_inner").empty();
+		$("#data_list_inner").empty();
 		
 		var _query_url = opts.queryUrl;
 		if(opts.searchForm != null){
@@ -42,7 +259,8 @@
 				'page' : opts.page,
 				"rows" : opts.rows,
 				"sort" : opts.orderby,
-				"order" : opts.order
+				"order" : opts.order,
+				"parentId":parent_id
 			},
 			success : function(data) {
 				initPagination(data.totalCount, data.pageNo);
@@ -58,7 +276,7 @@
 				$.each(data.result,function(i, obj) {
 					if (obj.docType == 0) {//文件
 						data_list =  data_list 
-							+ "<li class='row li-header'>"
+							+ "<li class='row li-header' file_type='file' id='file_" + obj.id + "'>"
 							+ "<div class='col-xs-12 col-md-7'>"
 							+ "<input type='checkbox'  id='dox_ck_" + obj.id + "' class='css-checkbox'/>"
 							+ "<label for='dox_ck_" + obj.id + "' name='name_" + obj.id + "' class='css-label'> </label>"
@@ -69,7 +287,7 @@
 							+"</li>"
 					}else{//1 文件夹
 						data_list =  data_list 
-							+ "<li class='row li-header'>"
+							+ "<li class='row li-header' file_type='folder' id='folder_" + obj.id + "'>"
 							+ "<div class='col-xs-12 col-md-7'>"
 							+ "<input type='checkbox'  id='dox_ck_" + obj.id + "' class='css-checkbox'/>"
 							+ "<label for='dox_ck_" + obj.id + "' name='name_" + obj.id + "' class='css-label'>"
@@ -111,6 +329,21 @@
 		// 加载数据
 		queryFile(current_node);
 	};
+	
+	
+	function newFolder(){
+		$('#myModal').modal();
+	}
+
+	function saveDoc(){
+		$.post(ctx + "/doc/doc!save.action?parentId=" + parent_id,
+				$('#folder-form').serialize(),
+				function(data) {
+					$('#myModal').modal("hide");
+		  			$("#inputEmail3").val("");
+		  			queryFile();
+		}, 'json');
+	}
 	
 	function fileNameIsRihgt(name) {
 		return !new RegExp("[\\/\:\?\"<>\*\#\|]+").test(name)

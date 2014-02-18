@@ -5,6 +5,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
+import com.chain.base.utils.encode.Encrypt;
 import com.chain.ens.entity.base.User;
 import com.chain.ens.entity.doc.Doc;
 
@@ -18,19 +19,13 @@ public class HibernateTest extends TestCase {
 		SessionFactory sf = (SessionFactory) ac.getBean("sessionFactory");
 		Session s = sf.openSession();
 		s.beginTransaction();
-		User user = (User) s.createQuery("From User u where u.id=1").uniqueResult();
-		for(int i = 0 ; i< 20; i++){
-			Doc d = new Doc();
-			d.setName("新建文件夹" + i);
-			d.setCreateUser(user.getUsername());
-			d.setOwn(user);
-			d.setPath("/");
-			d.setDir("/" + user.getId() + "/");
-			d.setParent(null);
-			s.save(d);
-		}
+		//User user = (User) s.createQuery("From User u where u.id=1").uniqueResult();
+		User user = new User();
+		user.setLoginName("admin");
+		user.setPassword(Encrypt.md5AndSha("admin"));
+		s.saveOrUpdate(user);
 		s.getTransaction().commit();
 		s.close();
-		System.out.println(s);
+		System.out.println(Encrypt.md5AndSha("adminasdasdadsad..").length());
 	}
 }

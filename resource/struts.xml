@@ -41,11 +41,32 @@
     <!-- 继承convention-default包，定义一个默认的拦截器，根据需要还可扩展 -->
 	<package name="default" extends="convention-default">
     	<interceptors>
+    	<!-- 表单输入特殊字符Html转译、敏感词汇转译拦截器 -->
+			<interceptor name="inputReplaceInterceptor" class="com.chain.base.web.struts2.interceptor.InputReplaceInterceptor" />
+			<!-- 登录验证拦截器 -->
+			<interceptor name="authority" class="com.chain.ens.core.AuthorityInterceptor" />
+			<!-- 异常处理拦截器 -->
+			<interceptor name="exceptionAuthority" class="com.chain.base.web.struts2.interceptor.ExceptionInterceptor" />
     		<interceptor-stack name="glbInterceptorStack">
+    		<!-- 将登录验证拦截器加入默认的拦截器栈中-->
+				<interceptor-ref name="authority">
+					<param name="excludeMethods">welcome,login</param>
+				</interceptor-ref> 
     			<interceptor-ref name="timer"/>
+    			<interceptor-ref name="exceptionAuthority" />
+				<interceptor-ref name="paramsPrepareParamsStack" />
     			<interceptor-ref name="defaultStack"/>
     		</interceptor-stack>
+    		
+    		<!-- url param定义拦截器  -->
+			<interceptor name="urlParamsInterceptor" class="com.chain.base.web.struts2.interceptor.UrlParamsInterceptor" />
     	</interceptors>
     	<default-interceptor-ref name="glbInterceptorStack"/>
+    	
+    	<global-results>
+   	 	  <result name="login" type="redirect">/jump.jsp</result>
+          <result name="noauthority" type="redirect">/common/403.jsp</result>
+    	</global-results>
     </package>
+    
 </struts>

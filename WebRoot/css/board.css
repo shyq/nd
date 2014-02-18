@@ -1,7 +1,6 @@
 /*
  * Base structure
  */
-	/* Move down content because we have a fixed navbar that is 50px tall */
 body {
 	padding-top: 50px;
 }
@@ -346,4 +345,22 @@ input[type=checkbox].css-checkbox:checked+label.css-label {
 	width: 28px;
 	height: 9px;
 	background-position: 0 0;
+}
+
+.disabled {
+	filter:progid:DXImageTransform.Microsoft.Alpha(opacity=50);
+	-ms-filter:"progid:DXImageTransform.Microsoft.Alpha(opacity=50)";
+	opacity:0.5;
+	color:#ccc
+}
+
+.disabled{
+	cursor: not-allowed
+}
+
+.disabled, .disabled:link, .disabled:hover, .disabled:visited, .actions .disabled, .actions .disabled:link, .actions .disabled:hover, .actions .disabled:visited {
+	text-decoration:none;
+	cursor:default;
+	pointer-events:none;
+	color:#9ebdd9
 }

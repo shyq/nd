@@ -10,7 +10,6 @@
      <%@ include file="/common/meta.jsp"%>
 
     <title>Chain 网盘</title>
-    <link href="${ctx}/css/board.css" rel="stylesheet">
     <script type="text/javascript">
     $(function(){
 		$.fn.nd({
@@ -18,14 +17,13 @@
 			queryUrl:"${ctx}/doc/doc!getAllDocs.action"
 		});
 	})
-    
     </script>
   </head>
 
   <body>
    	<%@ include file="menu.jsp"%>
        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-         <h5 class="page-header">全部文件</h5>
+         <h5 class="page-header" id="path" code="-1"><a>全部文件</a><i>»</i></h5>
          <div class="row">
          	<a id="barCmdUpload" href="javascript:;" class="btn-upload" >
 		 		<em>上&nbsp;传</em>
