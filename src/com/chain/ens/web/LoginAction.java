@@ -92,7 +92,24 @@ public class LoginAction extends SimpleActionSupport {
         }else{
             return "index";
         }
-//        return "app";
+    }
+    
+    /**
+     * 注销登录
+     */
+    public String logout() {
+        try {
+            // 退出时清空session中的内容
+            User user = (User) Struts2Utils.getSessionAttribute(SysConstants.SESSION_USER);
+            Struts2Utils.getSession().setAttribute(SysConstants.SESSION_USER, null);
+            String sessionId = Struts2Utils.getSession().getId();
+            //由监听器更新在线用户列表
+            AppUtils.removeUserFromSession(sessionId);
+            logger.info("用户{}退出系统.", user.getLoginName());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return SUCCESS;
     }
 	
 	public String getLoginName() {

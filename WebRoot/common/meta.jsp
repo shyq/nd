@@ -25,7 +25,14 @@
 <script src="${ctx}/plugin/datatable/jquery.dataTables.js"></script>
 <script src="${ctx}/plugin/datatable/dataTables.bootstrap.js"></script>
 <script src="${ctx}/plugin/datatable/TableTools.js"></script>
+<script src="${ctx}/plugin/toolbox/bootbox.js"></script>
 
+<!-- tBox -->
+<link rel="stylesheet" href="${ctx}/plugin/tBox/tBox.css">
+<script src="${ctx}/plugin/tBox/tBox-1.0.js"></script>
 
+<!-- user javascript -->
+<script src="${ctx}/js/common/common.js"></script>
 <script src="${ctx}/js/business/doc/jQuery.network.disk.js"></script>
+<script src="${ctx}/js/common/index.js"></script>
 

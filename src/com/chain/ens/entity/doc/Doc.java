@@ -27,7 +27,9 @@ public class Doc extends BaseEntity{
 	private Doc parent;
 	private Long parentId;
 	private String parentName;
-	
+	private String format;
+	private long fileSize;
+	private String pdfPath;
 	
 	@Column(name="NAME")
 	public String getName() {
@@ -83,6 +85,30 @@ public class Doc extends BaseEntity{
 		this.parent = parent;
 	}
 	
+	
+	
+	
+	@Column(name="PDF_PATH")
+	public String getPdfPath() {
+		return pdfPath;
+	}
+	public void setPdfPath(String pdfPath) {
+		this.pdfPath = pdfPath;
+	}
+	@Column(name="FILE_SIZE")
+	public long getFileSize() {
+		return fileSize;
+	}
+	public void setFileSize(long fileSize) {
+		this.fileSize = fileSize;
+	}
+	@Column(name="FORMAT")
+	public String getFormat() {
+		return format;
+	}
+	public void setFormat(String format) {
+		this.format = format;
+	}
 	@Transient
 	public Long getParentId() {
 		if(parent != null)

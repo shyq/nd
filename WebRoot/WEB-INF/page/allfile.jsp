@@ -23,7 +23,7 @@
   <body>
    	<%@ include file="menu.jsp"%>
        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
-         <h5 class="page-header" id="path" code="-1"><a>全部文件</a><i>»</i></h5>
+         <h5 class="page-header" id="path" ><a onclick="query()" code="-1">全部文件</a><i>»</i></h5>
          <div class="row">
          	<a id="barCmdUpload" href="javascript:;" class="btn-upload" >
 		 		<em>上&nbsp;传</em>

@@ -8,9 +8,8 @@
     <meta name="author" content="">
      <%@ include file="/common/taglibs.jsp"%>
      <%@ include file="/common/meta.jsp"%>
-    <link rel="shortcut icon" href="../../assets/ico/favicon.ico">
 
-    <title>Dashboard Template for Bootstrap</title>
+    <title>Chain 网盘 </title>
 
     <!-- Custom styles for this template -->
     <link href="${ctx}/css/board.css" rel="stylesheet">

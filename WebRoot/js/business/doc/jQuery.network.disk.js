@@ -10,10 +10,12 @@
 	var dataMap = null;//保存数据的map
 	var current_path = null;// 地址导航;
 	var parent_id=-1;
+	var current_path = "全部文件>>新建文件夹";
 	// 插件的定义
 	$.fn.nd = function(options) {
 		opts = $.extend( {}, $.fn.nd.defaults, options);
 		initBtnListener();
+		showOrHiddenButton();
 //		opts.treeUrl && opts.treeUrl!="" && initFolderTree();
 		queryFile(null);
 	};
@@ -27,7 +29,7 @@
 		});
 		
 		$("#barCmdUpload").live('click', function() {
-			uploadFile(getCurrentNodeId());
+			uploadFile(parent_id);
 		});
 		
 		$("#barCmdCancelShare").live("click",function(){
@@ -82,7 +84,7 @@
 				var id = $(this).attr("id").split("_")[1];
 				if ($(this).attr("file_type") == 'folder') {
 					parent_id = id;
-					folderDbClick();
+					folderDbClick($(this).attr("absname"));
 				} else {
 					view(id);
 				}
@@ -164,11 +166,13 @@
 	 * 文件夹双击事件
 	 * @return
 	 */
-	function folderDbClick(){
+	function folderDbClick(name,id){
 		opts.page = 1; //重置第一页
 		$("#check_all").attr("checked", false);// 重置全选按钮
 		if (opts.navigation) {//如果有路径(文档管理有路径,高级查询没有路径)
+			var aPath = $("<a href='javascript:void;' onclick='query(" + id + ")'>" + name + "</a><i>»</i>");
 			//设置路径
+			$("#path").append(aPath);
 		}
 		queryFile();
 	}
@@ -236,6 +240,52 @@
 	}
 	
 	/**
+	 * 文件上传
+	 * 
+	 */
+	function uploadFile(folderId) {
+//		if(isRight){
+//			current_node = folder_tree.getNodeByParam("id", folderId);
+//			var name = dataMap.get(folderId).name;
+//			current_path = current_path==null ? opts.title+">" + name : 
+//				current_path + name;
+//		}
+		
+		tBox.open('1000789000','iframe',
+					ctx + '/doc/doc-upload.action?folder='
+							+ folderId + "&path="
+							+ encodeURIComponent(current_path),
+					'文件上传',
+					'width=520,height=380,center=true,close=false,minimizable=true,resize=false,draggable=true,model=false,scrolling=false')
+		$("#jb1000789000 img[title='Close']").remove();
+	}
+
+	$.fn.uploadComplete = function(folder) {
+		queryFile();
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/**
 	 * 初始化分页 并 显示文档/文档类型信息
 	 */
 	function queryFile() {
@@ -287,7 +337,7 @@
 							+"</li>"
 					}else{//1 文件夹
 						data_list =  data_list 
-							+ "<li class='row li-header' file_type='folder' id='folder_" + obj.id + "'>"
+							+ "<li class='row li-header' file_type='folder' id='folder_" + obj.id + "' absname='"+obj.name+"'>"
 							+ "<div class='col-xs-12 col-md-7'>"
 							+ "<input type='checkbox'  id='dox_ck_" + obj.id + "' class='css-checkbox'/>"
 							+ "<label for='dox_ck_" + obj.id + "' name='name_" + obj.id + "' class='css-label'>"

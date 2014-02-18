@@ -12,13 +12,31 @@
         </div>
         <div class="navbar-collapse collapse">
           <ul class="nav navbar-nav navbar-right">
-            <li><a href="#">Dashboard</a></li>
-            <li><a href="#">Settings</a></li>
-            <li><a href="#">Profile</a></li>
-            <li><a href="#">Help</a></li>
+            <li>
+            	<div class="btn-group" style="margin-left:20px;margin-top: 8px;">
+	            	<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+					   ${sessionScope.user.name} <span class="caret"></span>
+					</button>
+	            	<ul class="dropdown-menu" role="menu">
+					    <li><a href="#">密码修改</a></li>
+					    <li><a href="#">账号安全中心</a></li>
+					    <li class="divider"></li>
+					    <li><a href="#">网盘消息</a></li>
+					    <li class="divider"></li>
+					    <li><a href="#">消息反馈</a></li>
+					    <li><a href="#">帮助中心</a></li>
+					  </ul>
+				 </div> 
+            </li>
+            <li><a href="#" onclick="loginout()">退出系统</a></li>
           </ul>
           <form class="navbar-form navbar-right">
-            <input type="text" class="form-control" placeholder="Search...">
+            <div class="input-group">
+		      <input type="text" class="form-control" placeholder="搜索一下">
+		      <span class="input-group-btn">
+		        <button class="btn btn-default" type="button">搜素</button>
+		      </span>
+		    </div><!-- /input-group -->
           </form>
         </div>
       </div>
