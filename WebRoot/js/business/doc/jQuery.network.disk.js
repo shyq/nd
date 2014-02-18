@@ -122,8 +122,8 @@
 			var id = $(this).parent().parent().attr("id");
 			var key = $(this).attr("class").split("-")[1];
 			id.split("_")[0] == "folder"
-					&& 　folder_right_menu_enter.contains(key)
-					&&　selectNodeAndOnClick(id.split("_")[1]);
+					&& folder_right_menu_enter.contains(key)
+					&& selectNodeAndOnClick(id.split("_")[1]);
 				
 			exeFunction(key, id.split("_")[1], 3,false,false);
 		});
