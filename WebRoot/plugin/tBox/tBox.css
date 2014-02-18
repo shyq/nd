@@ -1,0 +1,60 @@
+/*.tBox {
+	position: absolute;
+	border: 1px solid #DDDDDD;
+	visibility: hidden;
+	background-color: white;
+	text-align: left;
+	margin-top:-550px;
+	margin-left:180px;
+}*/
+
+
+.tBox {
+	position: absolute;
+	border: 1px solid #DDDDDD;
+	background-color: white;
+	margin-top:-150px;
+	margin-left:100px
+}
+
+.tBoxHandler {
+	padding: 5px 0px;
+	text-indent: 3px;
+	font: bold 14px Arial;
+	background-color: #3F7ED2;
+	color: white;
+	cursor: move;
+	overflow: hidden;
+	width: auto;
+	height: 30px;
+}
+
+.tBoxHandler .tBoxControls {
+	position: absolute;
+	right: 8px;
+	top: 0px;
+	cursor: hand;
+	cursor: pointer;
+}
+
+.tBoxContent {
+	background-color: #fff;
+	color: #000;
+	height: 150px;
+	padding: 5px 10px;
+	overflow: auto;
+}
+
+.tBoxStatus {
+	border-top: 1px solid #B9B9B9;
+	background-color: #F8F8F8;
+	height: 13px;
+}
+
+.tBoxResize {
+	float: right;
+	width: 13px;
+	height: 13px;
+	cursor: nw-resize;
+	font-size: 0;
+}
