@@ -72,7 +72,7 @@
 		
 		///:~ 鼠标单击文档事件
 		// 选中文档行
-		$("#data_list_inner li").live("click", function() {
+		$("#data_list_inner .liclass").live("click", function() {
 			// 取消上次延时未执行的方法
 			setCheckOrCancel(timer,$(this),false);
 		});
@@ -135,28 +135,28 @@
 			// 执行延时
 		timer = setTimeout(function() {
 			// 取消所有选中行S
-			$("#data_list_inner li :checkbox:checked").each(function() {
-				$li = $(this).parent();
-				if ($li.attr("id") != obj.attr("id")) {
-					$li.find(":checkbox").attr("checked",false);
-					$("#check_all").attr("checked", false);
-					$li.removeClass("focus");
-				}
-			});
-			// 更改选中状态
-			if(isRight){
+		$("#data_list_inner li :checkbox:checked").each(function() {
+			$li = $(this).parent().parent;
+			if ($li.attr("id") != obj.attr("id")) {
+				$li.find(":checkbox").attr("checked",false);
+				$("#check_all").attr("checked", false);
+				$li.removeClass("focus");
+			}
+		});
+		// 更改选中状态
+		if(isRight){
+			obj.find(":checkbox").attr("checked", true);
+			obj.addClass("focus");
+		}else{
+			if (obj.find(":checkbox:checked").length > 0) {
+				obj.find(":checkbox").attr("checked", false);
+				$("#check_all").attr("checked", false);
+				obj.removeClass("focus");
+			} else {
 				obj.find(":checkbox").attr("checked", true);
 				obj.addClass("focus");
-			}else{
-				if (obj.find(":checkbox:checked").length > 0) {
-					obj.find(":checkbox").attr("checked", false);
-					$("#check_all").attr("checked", false);
-					obj.removeClass("focus");
-				} else {
-					obj.find(":checkbox").attr("checked", true);
-					obj.addClass("focus");
-				}
 			}
+		}
 			
 			showOrHiddenButton();
 		}, 300);
@@ -338,15 +338,17 @@
 					}else{//1 文件夹
 						data_list =  data_list 
 							+ "<li class='row li-header' file_type='folder' id='folder_" + obj.id + "' absname='"+obj.name+"'>"
-							+ "<div class='col-xs-12 col-md-7'>"
+							+ "<div class='col-xs-12 col-md-1'>"
 							+ "<input type='checkbox'  id='dox_ck_" + obj.id + "' class='css-checkbox'/>"
 							+ "<label for='dox_ck_" + obj.id + "' name='name_" + obj.id + "' class='css-label'>"
 							+ "<div style='margin-top: -8px;'><img  src='"+ctx+"/img/folder-32.png'/></div>"
 							+ "</label>"
-							+ "<a>" + obj.name + "</a>"
 							+ "</div>"
-							+ "<div class='col-md-2'><span>4551KB</span></div>"
-							+ "<div class='col-md-3'><span>2014-05-02</span></div>"
+							+ "<div class='col-xs-12 col-md-6 liclass'>"
+							+ "<a class='filename-css'>" + obj.name + "</a>"
+							+ "</div>"
+							+ "<div class='col-md-2 liclass'><span>4551KB</span></div>"
+							+ "<div class='col-md-3 liclass'><span>2014-05-02</span></div>"
 							+"</li>"
 					}
 					$("#data_list_inner").html(data_list);
